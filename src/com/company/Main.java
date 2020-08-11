@@ -11,20 +11,23 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args)throws Exception {
-/*
-        File file = new File("H:\\内存卡\\VideoData\\1565960151333 - 副本\\k0");
-        String convert = convert(file);
-        mergeFile(convert);
+        //对某个视频文件夹进行单独合并，如没有加密，设置needDecode 为false，则直接将key设置为空字符串即可，
+        //若需要解密，则设置对应的key,设置needDecode为true；
 
-        System.out.println(convert);*/
         mergeFile(new File("需要合并的文件夹路径"),"",false);
-        // write your code here
-/*String str="283dcc2d3747e9650a81ead31e04fa8a";
+        //批量合并某文件夹下所有的视频文件夹的视频
+        //不需要自己手动设置key，会通过 视频目录下的k0 文件获取密钥
+        mergeDirAllFile("H:\\内存卡\\video\\CLOUDPLAY\\VideoData\\2018.9.20");
 
-        System.out.println(str.length());*/
     }
-    public static void  test() {
-        File dirFiles = new File("H:\\内存卡\\video\\CLOUDPLAY\\VideoData\\2018.9.20");
+
+    /**
+     * 合并某文件夹下所有的视频文件夹的视频
+     * 将一些视频的文件夹都统一放到一个目录下，进行批量合并，只要是目录，就进行合并
+     * @param path 需要合并的总目录
+     */
+    public static void  mergeDirAllFile(String path) {
+        File dirFiles = new File(path);
         File[] files = dirFiles.listFiles(e -> e.isDirectory());
         for (File everyFile:files) {
             File file = new File(everyFile.getAbsolutePath()+"/"+"k0");
